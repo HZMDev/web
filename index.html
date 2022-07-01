@@ -105,7 +105,7 @@ const btn_confirmar = document.getElementById('confirmar_cita')
 btn_confirmar.addEventListener('click', () => {
 	const newPost = {"Nombre": "Edu", "Apellidos": "Pruebas", "FechaNacimiento": "", "Email": "edupruebas@gmail.com", "Telefono": "674567654"}
 
-	fetch("http://localhost:60171/api/clientes",{
+	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
 		method: 'POST',
 		headers: {"Content-type": "application/json; charset=UTF-8"},
 		mode:"cors",
