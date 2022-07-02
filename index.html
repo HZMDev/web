@@ -20,7 +20,6 @@
 <body>
 	<div class="container">
 		<div class="contact-box">
-			<!--<div class="left"></div>-->
 			<div class="central">
 				<h1>PIDE TU CITA AHORA</h1>
 				<i class="fa-solid fa-lock"></i>
@@ -53,7 +52,7 @@
 const btn_confirmar = document.getElementById('confirmar_cita')
 
 btn_confirmar.addEventListener('click', () => {
-	const newPost = {"Nombre": $('#nombre').val(), "Apellidos": $('#apellidos').val(), "FechaNacimiento": $('#FechaNacimiento').val(), "Email": $('#email').val(), "Telefono": $('#email').val()}
+	const newPost = {"Nombre": $('#nombre').text(), "Apellidos": $('#apellidos').text(), "FechaNacimiento": $('#FechaNacimiento').text(), "Email": $('#email').text(), "Telefono": $('#telefono').text()}
 
 	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
 		method: 'POST',
@@ -61,8 +60,17 @@ btn_confirmar.addEventListener('click', () => {
 		mode:"cors",
 		body: JSON.stringify(newPost)
 	})
-		.then(rest => console.log(rest))
+	.then(rest => console.log(rest))
+/*
+	With rest, i need to obtain CodCliente (first element of dictionary)
+
+	const newPost = {"CodCliente": $('#nombre').text(), "Observaciones": $('#observaciones').text(), "Fecha": $('#datepicker').text(), "Cancelada": "false", "Completada": "false"}
+	fetch("https://gestionproyectapi.azurewebsites.net/api/citas",{
+		method: 'POST',
+		headers: {"Content-type": "application/json; charset=UTF-8"},
+		mode:"cors",
+		body: JSON.stringify(newPost)
+	})
+	*/
 })
-
-
 </script>
