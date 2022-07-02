@@ -73,15 +73,8 @@
 	const btn_confirmar = document.getElementById('confirmar_cita')
 
 	btn_confirmar.addEventListener('click', () => {
-	/*
-	var response = grecaptcha.getResponse();
-
-	if(response.length == 0) //reCaptcha failed
-		alert("Verifica el reCaptcha")
-	    return;
-
-	*/
 	$("#validar").attr('class', 'fa fa-circle-o-notch fa-spin');
+
 	const newCliente = {"Nombre": $('#nombre').val(), "Apellidos": $('#apellidos').val(), "FechaNacimiento": "", "Email": $('#email').val(), "Telefono": $('#telefono').val()}
 
 	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
@@ -106,18 +99,6 @@
 			body: JSON.stringify(newCita)
 		})
     })
-  
-/*
-	With rest, i need to obtain CodCliente (first element of dictionary)
-
-	const newPost = {"CodCliente": $('#nombre').val(), "Observaciones": $('#observaciones').val(), "Fecha": $('#datepicker').val(), "Cancelada": "false", "Completada": "false"}
-	fetch("https://gestionproyectapi.azurewebsites.net/api/citas",{
-		method: 'POST',
-		headers: {"Content-type": "application/json; charset=UTF-8"},
-		mode:"cors",
-		body: JSON.stringify(newPost)
-	})
-	*/
 
 	//Finally confirm icon change from loading ico to default
 	$("#validar").attr('class', 'fa-solid fa-check');
