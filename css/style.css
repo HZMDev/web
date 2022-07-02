@@ -27,7 +27,7 @@ body{
 	height: 100%;
 	left: 0;
 	top: 0;
-	background: url("img/edificios.jpg") no-repeat center;
+	background: url("../img/edificios.jpg") no-repeat center;
 	background-size: cover;
 	filter: blur(8px);
 	z-index: -1;
@@ -96,6 +96,10 @@ h1:after{
 
 .datepicker{
 	min-height: 150px;
+}
+i{
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .btn{

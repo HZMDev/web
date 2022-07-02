@@ -3,11 +3,17 @@
 <head>
 	<title>Citas</title>
 	<link rel = "icon" href = "img/hairdresser.png" type = "image/x-icon">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 	<!-- RECAPTCHA -->
 	<!--<script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>-->
+	<script src="https://www.google.com/recaptcha/enterprise.js?onload=onloadCallback&render=6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F"></script>
+	<script type="text/javascript">
+	  var onloadCallback = function() {
+	  };
+	</script>
+
 	<!-- JQUERY -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<link href="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.css" rel="stylesheet"/>
@@ -15,43 +21,67 @@
 	<script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<script src="jquery-ui.multidatespicker.js"></script>
-	<!-- CALENDAR CUSTOM -->
-	<script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F"></script>
+
+	<!-- ICONS -->
+	<script src="https://kit.fontawesome.com/250ee3c0c4.js" crossorigin="cors"></script>
+</script>
+
 <body>
 	<div class="container">
 		<div class="contact-box">
 			<div class="central">
-				<h1>PIDE TU CITA AHORA</h1>
-				<i class="fa-solid fa-lock"></i>
+				<h1>
+					<i class="fas fa-user"></i>
+					PIDE TU CITA AHORA
+				</h1>
 				<input type="text" id="nombre" required="true" class="field" placeholder="Tu Nombre" maxlength="100">
 				<input type="text" id="apellidos" required="true" class="field" placeholder="Tus Apellidos" maxlength="150">
+
 				<input type="text" id="email" required="true" class="field" placeholder="Tu Email" maxlength="90">
+
 				<input type="text" id="telefono" required="true" class="field" placeholder="Tu Telefono" maxlength="9">
+
 				<textarea id="observaciones" required="false" class="field" placeholder="Observaciones" maxlength="250"></textarea>
+
 				<input type="text" id="datepicker" readonly="true" required="true" class="field" placeholder="Fecha de la cita"></input>
-				<div class="g-recaptcha" data-sitekey="6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F"></div>
-				<button id="confirmar_cita" class="btn">Confirmar cita</button>
+
+				<div class="g-recaptcha" data-sitekey="6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F" id="recaptcha"></div>
+
+				<button id="confirmar_cita" class="btn">
+					CONFIRMAR CITA
+					<i class="fa-solid fa-check" id="validar"></i>
+				</button>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
+
 <script>
-		var today = new Date();
-		//DisableDates deberia de obtener los dias ya utilizados mediante consulta sql a tabla citas
-		$('#datepicker').multiDatesPicker({
-			//AddDates debe de verificar que el dia actual no esta disabled porque no deja seleccionar otra fecha
-			addDates: [today.setDate(today.getDate())],
-			addDisabledDates: [today.setDate(15), today.setDate(16)],
-			beforeShowDay: $.datepicker.noWeekends,
-			maxPicks: 1
-		});
+	var today = new Date();
+	//DisableDates deberia de obtener los dias ya utilizados mediante consulta sql a tabla citas
+	$('#datepicker').multiDatesPicker({
+		//AddDates debe de verificar que el dia actual no esta disabled porque no deja seleccionar otra fecha
+		addDates: [today.setDate(today.getDate())],
+		addDisabledDates: [today.setDate(15), today.setDate(16)],
+		beforeShowDay: $.datepicker.noWeekends,
+		maxPicks: 1
+	});
 </script>
 
 <script type="text/javascript">
-const btn_confirmar = document.getElementById('confirmar_cita')
+	const btn_confirmar = document.getElementById('confirmar_cita')
 
-btn_confirmar.addEventListener('click', () => {
+	btn_confirmar.addEventListener('click', () => {
+	/*
+	var response = grecaptcha.getResponse();
+
+	if(response.length == 0) //reCaptcha failed
+		alert("Verifica el reCaptcha")
+	    return;
+
+	*/
+	$("#validar").attr('class', 'fa fa-circle-o-notch fa-spin');
 	const newPost = {"Nombre": $('#nombre').val(), "Apellidos": $('#apellidos').val(), "FechaNacimiento": "", "Email": $('#email').val(), "Telefono": $('#telefono').val()}
 
 	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
@@ -60,7 +90,7 @@ btn_confirmar.addEventListener('click', () => {
 		mode:"cors",
 		body: JSON.stringify(newPost)
 	})
-	.then(rest => console.log(rest))
+	.then(rest => console.log(rest["CodCliente"]))
 /*
 	With rest, i need to obtain CodCliente (first element of dictionary)
 
@@ -72,5 +102,7 @@ btn_confirmar.addEventListener('click', () => {
 		body: JSON.stringify(newPost)
 	})
 	*/
+	//Finally confirm icon change from loading ico to default
+	$("#validar").attr('class', 'fa-solid fa-check');
 })
 </script>
