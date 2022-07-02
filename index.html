@@ -93,7 +93,7 @@
 	.then(response => console.log(response))
 
 	//Needed obtain DB Customer from email to after add new registry with Cita data
-	var urlGetByEmail = "https://gestionproyectapi.azurewebsites.net/api/clientes?email=" + $('#email').val();
+	var urlGetByEmail = "https://gestionproyectapi.azurewebsites.net/api/clientes?email=" +''+ $('#email').val();
 	fetch(urlGetByEmail)
     // Converting received data to JSON
     .then(response => response.json())
