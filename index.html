@@ -2,22 +2,21 @@
 <html>
 <head>
 	<title>Citas</title>
+	<link rel = "icon" href = "img/hairdresser.png" type = "image/x-icon">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 	<!-- RECAPTCHA -->
-	<script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+	<!--<script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>-->
 	<!-- JQUERY -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<link href="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.css" rel="stylesheet"/>
 	<link href="https://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css" rel="stylesheet"/>
 	<script src="https://cdn.rawgit.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/master/jquery-ui.multidatespicker.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
 	<script src="jquery-ui.multidatespicker.js"></script>
 	<!-- CALENDAR CUSTOM -->
-	<script src="jquery-3.3.1.min.js"></script>
-	<script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+	<script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F"></script>
 <body>
 	<div class="container">
 		<div class="contact-box">
@@ -25,13 +24,13 @@
 			<div class="central">
 				<h1>PIDE TU CITA AHORA</h1>
 				<i class="fa-solid fa-lock"></i>
-				<input type="text" id="nombre" required="true" class="field" placeholder="Tu Nombre">
-				<input type="text" id="apellidos" required="true" class="field" placeholder="Tus Apellidos">
-				<input type="text" id="email" required="true" class="field" placeholder="Tu Email">
-				<input type="text" id="telefono" required="true" class="field" placeholder="Tu Telefono">
-				<textarea id="observaciones" required="false" class="field" placeholder="Observaciones"></textarea>
+				<input type="text" id="nombre" required="true" class="field" placeholder="Tu Nombre" maxlength="100">
+				<input type="text" id="apellidos" required="true" class="field" placeholder="Tus Apellidos" maxlength="150">
+				<input type="text" id="email" required="true" class="field" placeholder="Tu Email" maxlength="90">
+				<input type="text" id="telefono" required="true" class="field" placeholder="Tu Telefono" maxlength="9">
+				<textarea id="observaciones" required="false" class="field" placeholder="Observaciones" maxlength="250"></textarea>
 				<input type="text" id="datepicker" readonly="true" required="true" class="field" placeholder="Fecha de la cita"></input>
-				<div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+				<div class="g-recaptcha" data-sitekey="6Ldh4bIgAAAAAIzYjUQm6Vk1Fw8ubnqyPCKtL60F"></div>
 				<button id="confirmar_cita" class="btn">Confirmar cita</button>
 			</div>
 		</div>
@@ -42,6 +41,7 @@
 		var today = new Date();
 		//DisableDates deberia de obtener los dias ya utilizados mediante consulta sql a tabla citas
 		$('#datepicker').multiDatesPicker({
+			//AddDates debe de verificar que el dia actual no esta disabled porque no deja seleccionar otra fecha
 			addDates: [today.setDate(today.getDate())],
 			addDisabledDates: [today.setDate(15), today.setDate(16)],
 			beforeShowDay: $.datepicker.noWeekends,
@@ -50,60 +50,10 @@
 </script>
 
 <script type="text/javascript">
-	/*$('#confirmar_cita').click(function(){
-        var data = { nombre : $('#nombre').val(), apellidos : $('#apellidos').val(), fechaNacimiento : null, email : $('#email').val(), telefono : $('#telefono').val() };
-        $.ajax({
-                url : 'https://localhost:44332/api/clientes'
-                data : data, 
-                method : 'post', //en este caso
-                dataType : 'json',
-                success : function(response){
-                        
-                },
-                error: function(error){
-                       alert("Fallo");
-                }
-        });
-	});
-	
-$('#confirmar_cita').click(function(){
-	alert("Hola");
-	var http = new XMLHttpRequest();
-	http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	http.open("POST", "localhost:44332/api/clientes", true);
-	alert("Hola2");
-	http.onreadystatechange = function() {
-	if(http.readyState == 4 && http.status == 200) { 
-	 //aqui obtienes la respuesta de tu peticion
-	alert(http.responseText);
-	}
-	}
-	alert("Hola3");
-	http.send(JSON.stringify({ nombre : $('#nombre').val(), apellidos : $('#apellidos').val(), fechaNacimiento : "", email : $('#email').val(), telefono : $('#telefono').val() }));
-	alert("Hola4");
-	http.close();
-});
-
-
-
-const newPost = {
-		nombre : 'Edu',
-		apellidos : 'Pruebas',
-		fechaNacimiento : '',
-		email : 'edupruebas@gmail.com',
-		telefono : '674567654'
-	}
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://localhost:60171/api/clientes", true);
-'Access-Control-Allow-Origin': '*',
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-xhr.send(JSON.stringify(newPost));
-*/
-
 const btn_confirmar = document.getElementById('confirmar_cita')
 
 btn_confirmar.addEventListener('click', () => {
-	const newPost = {"Nombre": "Edu", "Apellidos": "Pruebas", "FechaNacimiento": "", "Email": "edupruebas@gmail.com", "Telefono": "674567654"}
+	const newPost = {"Nombre": $('#nombre').val(), "Apellidos": $('#apellidos').val(), "FechaNacimiento": $('#FechaNacimiento').val(), "Email": $('#email').val(), "Telefono": $('#email').val()}
 
 	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
 		method: 'POST',
