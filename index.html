@@ -90,7 +90,7 @@
 		mode:"cors",
 		body: JSON.stringify(newPost)
 	})
-	.then(rest => console.log(rest["CodCliente"]))
+	.then(response => console.log(response))
 /*
 	With rest, i need to obtain CodCliente (first element of dictionary)
 
