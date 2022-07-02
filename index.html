@@ -52,7 +52,7 @@
 const btn_confirmar = document.getElementById('confirmar_cita')
 
 btn_confirmar.addEventListener('click', () => {
-	const newPost = {"Nombre": $('#nombre').text(), "Apellidos": $('#apellidos').text(), "FechaNacimiento": $('#FechaNacimiento').text(), "Email": $('#email').text(), "Telefono": $('#telefono').text()}
+	const newPost = {"Nombre": $('#nombre').val(), "Apellidos": $('#apellidos').val(), "FechaNacimiento": "", "Email": $('#email').val(), "Telefono": $('#telefono').val()}
 
 	fetch("https://gestionproyectapi.azurewebsites.net/api/clientes",{
 		method: 'POST',
@@ -64,7 +64,7 @@ btn_confirmar.addEventListener('click', () => {
 /*
 	With rest, i need to obtain CodCliente (first element of dictionary)
 
-	const newPost = {"CodCliente": $('#nombre').text(), "Observaciones": $('#observaciones').text(), "Fecha": $('#datepicker').text(), "Cancelada": "false", "Completada": "false"}
+	const newPost = {"CodCliente": $('#nombre').val(), "Observaciones": $('#observaciones').val(), "Fecha": $('#datepicker').val(), "Cancelada": "false", "Completada": "false"}
 	fetch("https://gestionproyectapi.azurewebsites.net/api/citas",{
 		method: 'POST',
 		headers: {"Content-type": "application/json; charset=UTF-8"},
